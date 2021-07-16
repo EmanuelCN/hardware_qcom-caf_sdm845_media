@@ -7706,6 +7706,11 @@ OMX_ERRORTYPE  omx_vdec::fill_this_buffer(OMX_IN OMX_HANDLETYPE  hComp,
     //We'll restore this size later on, so that it's transparent to client
     buffer->nFilledLen = 0;
 
+    //buffer->nAllocLen will be sizeof(struct VideoDecoderOutputMetaData). Overwrite
+    //this with a more sane size so that we don't compensate in rest of code
+    //We'll restore this size later on, so that it's transparent to client
+    buffer->nFilledLen = 0;
+
     post_event((unsigned long) hComp, (unsigned long)buffer, m_fill_output_msg);
     return OMX_ErrorNone;
 }
